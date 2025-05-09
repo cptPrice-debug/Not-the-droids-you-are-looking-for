@@ -17,37 +17,18 @@
       font-family: sans-serif;
     }
 
-    .meta {
-      font-size: 0.9rem;
-      color: #555;
-      margin-bottom: 0.5rem;
-      font-family: 'Courier New', monospace;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      text-align: center;
-    }
-
     .widget {
-      padding: 1em;
+      padding: 0.5em; /* Reduced padding */
       margin: auto;
       max-width: 95%;
       min-height: 100px;
       font-variant-caps: petite-caps;
-      font-size: 2em;
+      font-size: 14px; /* Reduced font size */
       text-align: center;
-      background:
-        linear-gradient(to right, #000 4px, transparent 4px) 0 0,
-        linear-gradient(to right, #000 4px, transparent 4px) 0 100%,
-        linear-gradient(to left, #000 4px, transparent 4px) 100% 0,
-        linear-gradient(to left, #000 4px, transparent 4px) 100% 100%,
-        linear-gradient(to bottom, #000 4px, transparent 4px) 0 0,
-        linear-gradient(to bottom, #000 4px, transparent 4px) 100% 0,
-        linear-gradient(to top, #000 4px, transparent 4px) 0 100%,
-        linear-gradient(to top, #000 4px, transparent 4px) 100% 100%;
-      background-repeat: no-repeat;
-      background-size: 20px 20px;
+      background-color: transparent; /* Remove background color */
       animation: fadeIn 1s ease-in;
       color: #000;
+      border: none; /* Remove borders */
     }
 
     @media (prefers-color-scheme: dark) {
@@ -58,29 +39,13 @@
 
       .widget {
         color: #eee;
-        background-color: #222;
-        background:
-          linear-gradient(to right, #666 4px, transparent 4px) 0 0,
-          linear-gradient(to right, #666 4px, transparent 4px) 0 100%,
-          linear-gradient(to left, #666 4px, transparent 4px) 100% 0,
-          linear-gradient(to left, #666 4px, transparent 4px) 100% 100%,
-          linear-gradient(to bottom, #666 4px, transparent 4px) 0 0,
-          linear-gradient(to bottom, #666 4px, transparent 4px) 100% 0,
-          linear-gradient(to top, #666 4px, transparent 4px) 0 100%,
-          linear-gradient(to top, #666 4px, transparent 4px) 100% 100%;
-        background-repeat: no-repeat;
-        background-size: 20px 20px;
-      }
-
-      .meta {
-        color: #aaa;
+        background-color: transparent; /* Dark mode background transparency */
       }
     }
   </style>
 </head>
 
 <body>
-  <div class="meta">Thought for the day:</div>
   <div class="widget" id="widget"></div>
 
   <script>
@@ -98,7 +63,7 @@
       "Above all, be the heroine of your life, not the victim. – Nora Ephron",
       "Do what you feel in your heart to be right – for you'll be criticized anyway. – Eleanor Roosevelt",
       "It's not what happens to you, but how you react to it that matters. – Epictetus",
-      "Discipline is choosing between what you want now and what you want most. – Abraham Lincoln",
+      "Discipline is choosing between what you want now and what you want most. – Abraham Lincoln (attrib.)",
       "In the middle of difficulty lies opportunity. – Albert Einstein",
       "He who has a why to live can bear almost any how. – Friedrich Nietzsche",
       "Don’t count the days, make the days count. – Muhammad Ali",
@@ -107,7 +72,7 @@
       "You become what you give your attention to. – Epictetus",
       "Twenty years from now you will be more disappointed by the things that you didn’t do than by the ones you did do. – Mark Twain",
       "What lies behind us and what lies before us are tiny matters compared to what lies within us. – Ralph Waldo Emerson",
-      "Most people overestimate what they can do in one year and underestimate what they can do in ten years. – Bill Gates",
+      "Most people overestimate what they can do in one year and underestimate what they can do in ten years. – Bill Gates (attrib.)",
       "A goal without a plan is just a wish. – Antoine de Saint-Exupéry"
     ];
 
