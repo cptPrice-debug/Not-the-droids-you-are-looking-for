@@ -1,47 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quote</title>
-
-    <style>
-        .widget {
-            padding: 5px 5px;
-            color: #000000;
-            text-align: center;
-            max-width: 95%;
-            margin: auto;
-            font-variant-caps: petite-caps;
-            font-size: 18px; /* Font size set to 18px */
-        }
-
-        div {
-            width: 95%;
-            min-height: 100px;
-
-            background:
-                linear-gradient(to right, black 4px, transparent 4px) 0 0,
-                linear-gradient(to right, black 4px, transparent 4px) 0 100%,
-                linear-gradient(to left, black 4px, transparent 4px) 100% 0,
-                linear-gradient(to left, black 4px, transparent 4px) 100% 100%,
-                linear-gradient(to bottom, black 4px, transparent 4px) 0 0,
-                linear-gradient(to bottom, black 4px, transparent 4px) 100% 0,
-                linear-gradient(to top, black 4px, transparent 4px) 0 100%,
-                linear-gradient(to top, black 4px, transparent 4px) 100% 100%;
-
-            background-repeat: no-repeat;
-            background-size: 20px 20px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Daily Quote</title>
+  <style>
+    .widget {
+      max-width: 95%;
+      margin: 2rem auto;
+      padding: 1rem;
+      text-align: center;
+      font-size: 18px;
+      color: #222;
+      font-family: Georgia, serif;
+      border: 2px solid black;
+      border-radius: 8px;
+      background-color: #fdfdfd;
+    }
+  </style>
 </head>
 <body>
 
-    <div class="widget" id="widget"></div>
+  <div class="widget" id="widget"></div>
 
-<script>
-
-const quotes = [
+  <script>
+    const quotes = [
+      "Most people overestimate what they can do in one year and underestimate what they can do in ten years. – Bill Gates",
+      "A goal without a plan is just a wish. – Antoine de Saint-Exupéry",
+      "Twenty years from now you will be more disappointed by the things that you didn’t do than by the ones you did do. – Mark Twain",
       "We don't see things as they are, we see them as we are. – Anaïs Nin",
       "Clarity comes from engagement, not thought. – Marie Forleo",
       "People don’t remember what you said. They remember how you made them feel. – Maya Angelou",
@@ -62,44 +48,17 @@ const quotes = [
       "Success is not final, failure is not fatal: It is the courage to continue that counts. – Winston Churchill",
       "Courage is resistance to fear, mastery of fear—not absence of fear. – Mark Twain",
       "You become what you give your attention to. – Epictetus",
-      "Twenty years from now you will be more disappointed by the things that you didn’t do than by the ones you did do. – Mark Twain",
-      "What lies behind us and what lies before us are tiny matters compared to what lies within us. – Ralph Waldo Emerson",
-      "Most people overestimate what they can do in one year and underestimate what they can do in ten years. – Bill Gates",
-      "A goal without a plan is just a wish. – Antoine de Saint-Exupéry"
+      "What lies behind us and what lies before us are tiny matters compared to what lies within us. – Ralph Waldo Emerson"
+    ];
 
-const INTERVAL = 86400000;
+    function displayRandomQuote() {
+      const widget = document.getElementById('widget');
+      const quote = quotes[Math.floor(Math.random() * quotes.length)];
+      widget.innerHTML = `<p>${quote}</p>`;
+    }
 
-// Function to randomize quotes on each page visit
-function randomizeQuotes() {
-    const shuffledQuotes = quotes.sort(() => Math.random() - 0.5); // Shuffle the quotes
-    return shuffledQuotes;
-}
-
-// Function to display the quotes
-function displayQuote() {
-    const widget = document.getElementById('widget');
-    const randomizedQuotes = randomizeQuotes();
-
-    // Display quotes one by one
-    randomizedQuotes.forEach((quote, i) => {
-        setTimeout(() => {
-            widget.innerHTML = quote;
-        }, i * INTERVAL);  
-    });
-}
-
-// Function to refresh the widget periodically
-function displayWidget() {
-    displayQuote();
-    setTimeout(displayWidget, quotes.length * INTERVAL);
-}
-
-// Initial call to display the quotes
-displayWidget();
-
-</script>
+    displayRandomQuote();
+  </script>
 
 </body>
 </html>
-
-  
