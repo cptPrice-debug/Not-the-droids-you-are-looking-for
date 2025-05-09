@@ -66,7 +66,8 @@
      
     </style>
 </head>
-<body>
+
+    <body>
      
     <div class="meta">Thought for the day:</div>
     <div class="widget" id="widget"></div>
@@ -104,7 +105,7 @@ quotes=[
 
 const INTERVAL = 86400000;
 
-function dispalyQuote(){
+function displayQuote(){
 
     document.getElementById('widget').innerHTML =quotes[0];
     quotes.forEach((quote, i) => {
@@ -115,7 +116,7 @@ function dispalyQuote(){
     }
 
     function dispalyWidget() {
-        dispalyQuote();
+        displayQuote();
         setTimeout(dispalyWidget, quotes.length*INTERVAL);
     }
     dispalyWidget()
