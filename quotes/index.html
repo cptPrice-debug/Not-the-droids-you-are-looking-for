@@ -44,7 +44,7 @@
 <body>
 
   <div class="widget" id="widget">
-    <div class="quote-container" id="quoteContainer"></div>
+    <div class="quote-container" id="quoteContainer" role="article" aria-live="polite"></div>
   </div>
 
   <script>
@@ -75,14 +75,23 @@
       "What lies behind us and what lies before us are tiny matters compared to what lies within us. – Ralph Waldo Emerson"
     ];
 
+    let lastQuote = null; // Track the last displayed quote
+
     function displayRandomQuote() {
       const quoteContainer = document.getElementById('quoteContainer');
-      const quote = quotes[Math.floor(Math.random() * quotes.length)];
-      
+      let quote;
+
+      // Select a new quote, ensuring it's different from the last one
+      do {
+        quote = quotes[Math.floor(Math.random() * quotes.length)];
+      } while (quote === lastQuote && quotes.length > 1); // Avoid same quote unless only one exists
+
+      lastQuote = quote; // Update the last displayed quote
+
       // Set the quote and apply fade-in animation
       quoteContainer.innerHTML = `<p>${quote}</p>`;
       quoteContainer.classList.add('fade-in');
-      
+
       // Remove fade-in class after animation to allow future transitions
       setTimeout(() => {
         quoteContainer.classList.remove('fade-in');
