@@ -7,7 +7,15 @@
     <title>Quote</title>
 
     <style>
+        
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 
+.widget {
+  animation: fadeIn 1s ease-in;
+}
         .widget {
             padding: 5px 5px ;
             color: #000000;
@@ -73,54 +81,55 @@
 
 
 <script>
-
-quotes=[
-  
-"We don't see things as they are, we see them as we are. – Anaïs Nin",
-"Clarity comes from engagement, not thought. – Marie Forleo",
-"People don’t remember what you said. They remember how you made them feel. – Maya Angelou",
-"Done is better than perfect. – Sheryl Sandberg",
-"Vulnerability is not winning or losing; it's having the courage to show up. – Brené Brown",
-"Growth is often uncomfortable, messy, and full of feelings you didn’t expect. – Brené Brown",
-"You are not a mess. You are a feeling person in a messy world. – Glennon Doyle",
-"You’re allowed to outgrow people, systems, and identities that no longer fit. – Glennon Doyle",
-"Your job is not to be impressive. Your job is to be real. – Danielle LaPorte",
-"I am not afraid of storms, for I am learning how to sail my ship. – Louisa May Alcott",
-"Above all, be the heroine of your life, not the victim. – Nora Ephron",
-"Do what you feel in your heart to be right – for you'll be criticized anyway. – Eleanor Roosevelt",
-"It's not what happens to you, but how you react to it that matters. – Epictetus",
-"Discipline is choosing between what you want now and what you want most. – Abraham Lincoln (attrib.)",
-"In the middle of difficulty lies opportunity. – Albert Einstein",
-"He who has a why to live can bear almost any how. – Friedrich Nietzsche",
-"Don’t count the days, make the days count. – Muhammad Ali",
-"Success is not final, failure is not fatal: It is the courage to continue that counts. – Winston Churchill",
-"Courage is resistance to fear, mastery of fear—not absence of fear. – Mark Twain",
-"You become what you give your attention to. – Epictetus",
-"Twenty years from now you will be more disappointed by the things that you didn’t do than by the ones you did do. – Mark Twain",
-"What lies behind us and what lies before us are tiny matters compared to what lies within us. – Ralph Waldo Emerson",
-"Most people overestimate what they can do in one year and underestimate what they can do in ten years. – Bill Gates (attrib.)",
-"A goal without a plan is just a wish. – Antoine de Saint-Exupéry"
+const quotes = [
+  "We don't see things as they are, we see them as we are. – Anaïs Nin",
+  "Clarity comes from engagement, not thought. – Marie Forleo",
+  "People don’t remember what you said. They remember how you made them feel. – Maya Angelou",
+  "Done is better than perfect. – Sheryl Sandberg",
+  "Vulnerability is not winning or losing; it's having the courage to show up. – Brené Brown",
+  "Growth is often uncomfortable, messy, and full of feelings you didn’t expect. – Brené Brown",
+  "You are not a mess. You are a feeling person in a messy world. – Glennon Doyle",
+  "You’re allowed to outgrow people, systems, and identities that no longer fit. – Glennon Doyle",
+  "Your job is not to be impressive. Your job is to be real. – Danielle LaPorte",
+  "I am not afraid of storms, for I am learning how to sail my ship. – Louisa May Alcott",
+  "Above all, be the heroine of your life, not the victim. – Nora Ephron",
+  "Do what you feel in your heart to be right – for you'll be criticized anyway. – Eleanor Roosevelt",
+  "It's not what happens to you, but how you react to it that matters. – Epictetus",
+  "Discipline is choosing between what you want now and what you want most. – Abraham Lincoln (attrib.)",
+  "In the middle of difficulty lies opportunity. – Albert Einstein",
+  "He who has a why to live can bear almost any how. – Friedrich Nietzsche",
+  "Don’t count the days, make the days count. – Muhammad Ali",
+  "Success is not final, failure is not fatal: It is the courage to continue that counts. – Winston Churchill",
+  "Courage is resistance to fear, mastery of fear—not absence of fear. – Mark Twain",
+  "You become what you give your attention to. – Epictetus",
+  "Twenty years from now you will be more disappointed by the things that you didn’t do than by the ones you did do. – Mark Twain",
+  "What lies behind us and what lies before us are tiny matters compared to what lies within us. – Ralph Waldo Emerson",
+  "Most people overestimate what they can do in one year and underestimate what they can do in ten years. – Bill Gates (attrib.)",
+  "A goal without a plan is just a wish. – Antoine de Saint-Exupéry"
 ];
 
-const INTERVAL = 86400000;
+const INTERVAL = 86400000; // 1 day
+let index = 0;
 
-function displayQuote(){
+function displayQuote() {
+    const quote = quotes[index % quotes.length];
+    const widget = document.getElementById('widget');
 
-    document.getElementById('widget').innerHTML =quotes[0];
-    quotes.forEach((quote, i) => {
-        setTimeout(() => {
-            document.getElementById('widget').innerHTML =quote;
-        }, i * INTERVAL);  
-    });
-    }
+    widget.innerHTML = quote;
+    widget.style.animation = 'none';
+    widget.offsetHeight;
+    widget.style.animation = 'fadeIn 1s ease-in';
 
-    function dispalyWidget() {
-        displayQuote();
-        setTimeout(dispalyWidget, quotes.length*INTERVAL);
-    }
-    dispalyWidget()
+    index++;
+}
 
+// Show first quote immediately
+displayQuote();
+
+// Update once every 24 hours
+setInterval(displayQuote, INTERVAL);
+    
 </script>
-
+        
 </body>
 </html>
