@@ -111,32 +111,14 @@
       "A goal without a plan is just a wish. – Antoine de Saint-Exupéry"
     ];
 
-    // Randomize the quotes once when the page loads
-    const shuffledQuotes = [...quotes];
-    for (let i = shuffledQuotes.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffledQuotes[i], shuffledQuotes[j]] = [shuffledQuotes[j], shuffledQuotes[i]];
-    }
-
-    function getNextQuoteIndex() {
-      const storedIndex = localStorage.getItem('quoteIndex');
-      const today = new Date().toDateString();
-      const lastSeen = localStorage.getItem('lastSeenDate');
-
-      if (storedIndex && today === lastSeen) {
-        return parseInt(storedIndex);
-      } else {
-        const nextIndex = Math.floor(Math.random() * quotes.length);
-        localStorage.setItem('quoteIndex', nextIndex);
-        localStorage.setItem('lastSeenDate', today);
-        return nextIndex;
-      }
+    function getRandomQuote() {
+      const randomIndex = Math.floor(Math.random() * quotes.length);
+      return quotes[randomIndex];
     }
 
     function displayQuote() {
-      const index = getNextQuoteIndex();
       const widget = document.getElementById('widget');
-      widget.innerHTML = shuffledQuotes[index];
+      widget.innerHTML = getRandomQuote();
       widget.style.animation = 'none';
       widget.offsetHeight;
       widget.style.animation = 'fadeIn 1s ease-in';
