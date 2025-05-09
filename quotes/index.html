@@ -24,38 +24,20 @@
       transition: opacity 0.5s ease-in-out;
     }
 
-    /* Fade-out effect */
+    /* Fade-out effect (for future quote changes) */
     .quote-container.fade {
       opacity: 0;
     }
 
-    /* Fade-in animation */
+    /* Fade-in animation for initial display and future changes */
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
     }
 
-    /* Apply fade-in animation after quote change */
+    /* Apply fade-in animation */
     .quote-container.fade-in {
       animation: fadeIn 0.5s ease-in-out;
-    }
-
-    /* Styling for the Next Quote button */
-    .next-quote-btn {
-      margin-top: 1rem;
-      padding: 0.5rem 1rem;
-      font-size: 16px;
-      font-family: Georgia, serif;
-      color: #222;
-      background-color: #fff;
-      border: 2px solid black;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    .next-quote-btn:hover {
-      background-color: #e0e0e0;
     }
   </style>
 </head>
@@ -63,7 +45,6 @@
 
   <div class="widget" id="widget">
     <div class="quote-container" id="quoteContainer"></div>
-    <button class="next-quote-btn" onclick="displayRandomQuote()">Next Quote</button>
   </div>
 
   <script>
@@ -96,22 +77,16 @@
 
     function displayRandomQuote() {
       const quoteContainer = document.getElementById('quoteContainer');
+      const quote = quotes[Math.floor(Math.random() * quotes.length)];
       
-      // Apply fade-out effect
-      quoteContainer.classList.add('fade');
+      // Set the quote and apply fade-in animation
+      quoteContainer.innerHTML = `<p>${quote}</p>`;
+      quoteContainer.classList.add('fade-in');
       
-      // Wait for fade-out to complete, then change quote and fade in
+      // Remove fade-in class after animation to allow future transitions
       setTimeout(() => {
-        const quote = quotes[Math.floor(Math.random() * quotes.length)];
-        quoteContainer.innerHTML = `<p>${quote}</p>`;
-        quoteContainer.classList.remove('fade');
-        quoteContainer.classList.add('fade-in');
-        
-        // Remove fade-in class after animation to allow future transitions
-        setTimeout(() => {
-          quoteContainer.classList.remove('fade-in');
-        }, 500);
-      }, 500); // Match the transition duration
+        quoteContainer.classList.remove('fade-in');
+      }, 500); // Match the animation duration
     }
 
     // Initial quote display
