@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Career Journey Map</title>
   <style>
+    html {
+      scroll-behavior: smooth;
+    }
     body {
       font-family: Georgia, serif;
       color: #333;
@@ -17,6 +20,26 @@
       max-width: 800px;
       margin: 2rem auto;
       padding: 0 1rem;
+    }
+    .nav-menu {
+      text-align: center;
+      margin-bottom: 1rem;
+      position: sticky;
+      top: 0;
+      background: #f5f5f5;
+      padding: 0.5rem 0;
+      z-index: 10;
+    }
+    .nav-menu a {
+      color: #00c4b4;
+      text-decoration: none;
+      margin: 0 1rem;
+      font-size: 0.9rem;
+      transition: color 0.3s ease;
+    }
+    .nav-menu a:hover, .nav-menu a.active {
+      color: #1e90ff;
+      font-weight: bold;
     }
     .header {
       text-align: center;
@@ -64,8 +87,17 @@
       top: 0;
       bottom: 0;
       width: 2px;
-      background: #00c4b4;
+      background: linear-gradient(180deg, #00c4b4, #1e90ff);
       border-left: 2px dashed #36a9e1;
+    }
+    .timeline-progress {
+      position: absolute;
+      left: 1rem;
+      top: 0;
+      width: 2px;
+      height: 0;
+      background: #00c4b4;
+      transition: height 0.3s ease;
     }
     .milestone {
       position: relative;
@@ -79,11 +111,21 @@
       transform: translateX(0);
     }
     .milestone::before {
-      content: '📍';
+      content: '';
       position: absolute;
       left: -2.1rem;
       top: 0;
-      font-size: 1.5rem;
+      width: 12px;
+      height: 12px;
+      background: #00c4b4;
+      border-radius: 50%;
+      transform: translateX(5px);
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: translateX(5px) scale(1); opacity: 1; }
+      50% { transform: translateX(5px) scale(1.2); opacity: 0.7; }
+      100% { transform: translateX(5px) scale(1); opacity: 1; }
     }
     .card {
       background: white;
@@ -91,6 +133,7 @@
       border-radius: 8px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       border: 1px solid #e0e0e0;
+      position: relative;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     .card.language {
@@ -101,9 +144,24 @@
       background: url('https://www.transparenttextures.com/patterns/graphy.png') rgba(255, 255, 255, 0.8);
       background-blend-mode: overlay;
     }
-    .card:hover {
-      transform: scale(1.02);
-      box-shadow: 0 4px 10px rgba(0, 196, 180, 0.3);
+    .card:hover, .card.active {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(0, 196, 180, 0.3);
+    }
+    .card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, rgba(0, 196, 180, 0.1), rgba(30, 144, 255, 0.1));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      border-radius: 8px;
+    }
+    .card:hover::after, .card.active::after {
+      opacity: 1;
     }
     .card h3 {
       font-size: 1.3rem;
@@ -134,6 +192,24 @@
       font-size: 0.9rem;
       margin-top: 0.5rem;
       text-decoration: underline;
+    }
+    .card .impact {
+      position: relative;
+      display: inline-block;
+    }
+    .card .impact:hover::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: white;
+      padding: 0.3rem 0.5rem;
+      border-radius: 5px;
+      font-size: 0.8rem;
+      white-space: nowrap;
+      z-index: 10;
     }
     .toolbox, .principles, .cta {
       text-align: center;
@@ -200,6 +276,7 @@
     }
     @media (max-width: 600px) {
       .container { padding: 0 0.5rem; }
+      .nav-menu a { margin: 0 0.5rem; font-size: 0.8rem; }
       .header h1 { font-size: 1.5rem; }
       .header p { font-size: 0.9rem; }
       .card { padding: 1rem; }
@@ -207,6 +284,7 @@
       .card p { font-size: 0.9rem; }
       .card .story { max-height: 0; }
       .card.active .story { max-height: 400px; }
+      .card .impact::after { display: none; } /* Hide tooltips on mobile */
       .toolbox-grid { grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); }
       .toolbox-item span { display: block; }
       .principles-list { flex-direction: column; }
@@ -216,6 +294,13 @@
 </head>
 <body>
   <div class="container">
+    <div class="nav-menu">
+      <a href="#milestone-2015">2015</a>
+      <a href="#milestone-2018">2018</a>
+      <a href="#milestone-2021">2021</a>
+      <a href="#milestone-2023">2023</a>
+    </div>
+
     <div class="header">
       <h1>🧭 Maps, Markets, and Meaning</h1>
       <p class="subtitle">A short story about how I learned to navigate complexity — with people, data, and systems.</p>
@@ -223,46 +308,47 @@
     </div>
 
     <div class="timeline">
-      <div class="milestone">
+      <div class="timeline-progress"></div>
+      <div class="milestone" id="milestone-2015">
         <div class="card language">
           <h3>2015–2018 — KRUK Romania: Senior Contact Center Agent</h3>
           <p><strong>🔹 Role Summary:</strong> Handled high-volume client interactions in debt recovery.</p>
           <p class="story"><strong>📖 Story:</strong> In 2015, I joined KRUK Romania, the country’s leading debt recovery company. I began on the front lines — as a Contact Center Agent — handling high-volume client interactions in stressful financial contexts. It taught me precision, empathy, and how to manage complexity under pressure.</p>
           <span class="toggle-story">Read More</span>
-          <p><strong>🎯 Impact:</strong> Consistently handled complex cases; mentored new team members.</p>
+          <p><strong>🎯 Impact:</strong> <span class="impact" data-tooltip="Mentored 5+ team members">Consistently handled complex cases; mentored new team members.</span></p>
           <p><strong>🌱 Growth:</strong> Built a foundation in behavioral handling and real-time problem-solving.</p>
         </div>
       </div>
 
-      <div class="milestone">
+      <div class="milestone" id="milestone-2018">
         <div class="card data">
           <h3>2018–2021 — Customer Experience & Research Analyst</h3>
           <p><strong>🔹 Role Summary:</strong> Built CX research from scratch, ran 40+ research cycles.</p>
           <p class="story"><strong>📖 Story:</strong> Curiosity led me deeper — into data, and into a newly formed team at KRUK: Customer Experience. We were just two people, building from the ground up. I quickly took on full-cycle research projects: designing surveys, analyzing customer behavior, and translating insights into strategies that shaped service delivery.</p>
           <span class="toggle-story">Read More</span>
-          <p><strong>🎯 Impact:</strong> Created 40+ insight documents used across departments; standardized reporting.</p>
+          <p><strong>🎯 Impact:</strong> <span class="impact" data-tooltip="Adopted company-wide">Created 40+ insight documents used across departments;</span> standardized reporting.</p>
           <p><strong>🌱 Growth:</strong> Developed technical fluency in research and strategic thinking.</p>
         </div>
       </div>
 
-      <div class="milestone">
+      <div class="milestone" id="milestone-2021">
         <div class="card data">
           <h3>2021–2023 — CX & Research Project Manager</h3>
           <p><strong>🔹 Role Summary:</strong> Led CX and research, integrated into product strategy.</p>
           <p class="story"><strong>📖 Story:</strong> Our small team was quickly recognized as a key source of insight within the company, and we were integrated into a larger department focused on product development and business strategy. It felt like being part of a startup inside a big organization — agile, creative, and fast-moving. I had the chance to collaborate across functions and absorb a wide range of skills: digital marketing, PR and communication, loyalty programs, and strategic planning. Within this new structure, I found myself leading research and customer experience initiatives. I mapped customer journeys, segmented user types, and identified friction points that helped reduce late-payment incidents by 6% and improved satisfaction KPIs (CSAT/NPS) by ~10%. I also implemented a multi-channel feedback system that tripled response volume and delivered real-time insights across the organization.</p>
           <span class="toggle-story">Read More</span>
-          <p><strong>🎯 Impact:</strong> +300% feedback volume, -6% late payments, +10% CSAT/NPS growth.</p>
+          <p><strong>🎯 Impact:</strong> <span class="impact" data-tooltip="Implemented multi-channel system">+300% feedback volume,</span> -6% late payments, +10% CSAT/NPS growth.</p>
           <p><strong>🌱 Growth:</strong> Gained cross-functional exposure; learned to design systems.</p>
         </div>
       </div>
 
-      <div class="milestone">
+      <div class="milestone" id="milestone-2023">
         <div class="card data">
           <h3>2023–Present — Financial Investment & Market Research</h3>
           <p><strong>🔹 Role Summary:</strong> Pivoted to finance, managing portfolios and market research.</p>
           <p class="story"><strong>📖 Story:</strong> In 2023, I took a risk and pivoted into finance — managing portfolios and conducting market research full-time. I apply the same pattern-recognition skills to trends, risks, and investment strategy. Currently expanding into Business Analysis and Data Analytics, with a focus on deepening my use of Tableau and SQL.</p>
           <span class="toggle-story">Read More</span>
-          <p><strong>🎯 Impact:</strong> Shifted to investment decisions using analytical frameworks.</p>
+          <p><strong>🎯 Impact:</strong> <span class="impact" data-tooltip="Using analytical frameworks">Shifted to investment decisions using analytical frameworks.</span></p>
           <p><strong>🌱 Growth:</strong> Building advanced analytics skills with Tableau and SQL.</p>
         </div>
       </div>
@@ -300,17 +386,33 @@
   </div>
 
   <script>
-    // Animate milestones on scroll
+    // Animate milestones on scroll and update timeline progress
     const milestones = document.querySelectorAll('.milestone');
+    const timelineProgress = document.querySelector('.timeline-progress');
+    const timeline = document.querySelector('.timeline');
+    const navLinks = document.querySelectorAll('.nav-menu a');
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry, index) => {
         if (entry.isIntersecting) {
           setTimeout(() => {
             entry.target.classList.add('visible');
           }, index * 200);
+
+          // Update timeline progress
+          const timelineHeight = timeline.offsetHeight;
+          const lastVisibleMilestone = Array.from(milestones).filter(m => m.classList.contains('visible')).pop();
+          const progressHeight = lastVisibleMilestone ? lastVisibleMilestone.offsetTop + lastVisibleMilestone.offsetHeight : 0;
+          timelineProgress.style.height = `${(progressHeight / timelineHeight) * 100}%`;
+
+          // Highlight active nav link
+          navLinks.forEach(link => link.classList.remove('active'));
+          const activeLink = document.querySelector(`.nav-menu a[href="#${entry.target.id}"]`);
+          if (activeLink) activeLink.classList.add('active');
         }
       });
     }, { threshold: 0.1 });
+
     milestones.forEach(milestone => observer.observe(milestone));
 
     // Toggle story on click
@@ -320,6 +422,13 @@
         e.stopPropagation();
         card.classList.toggle('active');
         toggle.textContent = card.classList.contains('active') ? 'Read Less' : 'Read More';
+      });
+
+      // Add active class on click for mobile
+      card.addEventListener('click', () => {
+        if (window.innerWidth <= 600) {
+          card.classList.toggle('active');
+        }
       });
     });
   </script>
