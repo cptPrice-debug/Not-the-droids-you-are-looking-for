@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Daily Quote</title>
+  <title>Daily Quote Widget</title>
   <style>
     .widget {
       max-width: 95%;
@@ -16,6 +16,7 @@
       border: 2px solid black;
       border-radius: 8px;
       background-color: #f5f5f5;
+      box-sizing: border-box;
     }
 
     /* Container for the quote to apply transitions */
@@ -24,27 +25,49 @@
       transition: opacity 0.5s ease-in-out;
     }
 
-    /* Fade-out effect (for future quote changes) */
+    /* Fade-out effect */
     .quote-container.fade {
       opacity: 0;
     }
 
-    /* Fade-in animation for initial display and future changes */
+    /* Fade-in animation */
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
     }
 
-    /* Apply fade-in animation */
     .quote-container.fade-in {
       animation: fadeIn 0.5s ease-in-out;
+    }
+
+    /* Next Quote button */
+    .next-quote-btn {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      font-size: 16px;
+      font-family: Georgia, serif;
+      color: #222;
+      background-color: #fff;
+      border: 2px solid black;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .next-quote-btn:hover {
+      background-color: #e0e0e0;
+    }
+
+    .next-quote-btn:focus {
+      outline: 2px solid #000;
+      outline-offset: 2px;
     }
   </style>
 </head>
 <body>
-
-  <div class="widget" id="widget">
+  <div class="widget" id="widget" role="region" aria-label="Daily Quote Widget">
     <div class="quote-container" id="quoteContainer" role="article" aria-live="polite"></div>
+    <button class="next-quote-btn" aria-label="Show next quote" onclick="displayRandomQuote()">Next Quote</button>
   </div>
 
   <script>
@@ -84,23 +107,24 @@
       // Select a new quote, ensuring it's different from the last one
       do {
         quote = quotes[Math.floor(Math.random() * quotes.length)];
-      } while (quote === lastQuote && quotes.length > 1); // Avoid same quote unless only one exists
+      } while (quote === lastQuote && quotes.length > 1);
 
-      lastQuote = quote; // Update the last displayed quote
+      lastQuote = quote;
 
-      // Set the quote and apply fade-in animation
-      quoteContainer.innerHTML = `<p>${quote}</p>`;
-      quoteContainer.classList.add('fade-in');
+      // Apply fade-out effect
+      quoteContainer.classList.add('fade');
 
-      // Remove fade-in class after animation to allow future transitions
+      // Wait for fade-out, then change quote and fade in
       setTimeout(() => {
-        quoteContainer.classList.remove('fade-in');
-      }, 500); // Match the animation duration
+        quoteContainer.innerHTML = `<p>${quote}</p>`;
+        quoteContainer.classList.remove('fade');
+        quoteContainer.classList.add('fade-in');
+        setTimeout(() => quoteContainer.classList.remove('fade-in'), 500);
+      }, 500); // Match the transition duration
     }
 
     // Initial quote display
     displayRandomQuote();
   </script>
-
 </body>
 </html>
