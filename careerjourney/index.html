@@ -47,7 +47,7 @@
       color: #555;
       margin: 1rem 0;
       opacity: 0;
-      animation: fadeIn 1s ease forwards 2s; /* Reduced delay */
+      animation: fadeIn 1s ease forwards 2s;
     }
     @keyframes fadeIn {
       to { opacity: 1; }
@@ -90,7 +90,8 @@
       padding: 1.5rem;
       border-radius: 8px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease;
+      border: 1px solid #e0e0e0;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     .card.language {
       background: url('https://www.transparenttextures.com/patterns/paper-fibers.png') rgba(255, 255, 255, 0.8);
@@ -102,6 +103,7 @@
     }
     .card:hover {
       transform: scale(1.02);
+      box-shadow: 0 4px 10px rgba(0, 196, 180, 0.3);
     }
     .card h3 {
       font-size: 1.3rem;
@@ -119,19 +121,19 @@
       max-height: 0;
       overflow: hidden;
       transition: max-height 0.5s ease;
-      color: #222; /* Darker for better contrast */
-      background: rgba(255, 255, 255, 0.9); /* Slight overlay for readability */
-      padding: 0.5rem 0;
+      color: #222;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 0.5rem 0.5rem;
     }
     .card:hover .story, .card.active .story {
-      max-height: 300px; /* Adjusted for longer content */
+      max-height: 400px;
     }
     .card .toggle-story {
-      display: none; /* Hidden on desktop, shown on mobile */
       color: #00c4b4;
       cursor: pointer;
       font-size: 0.9rem;
       margin-top: 0.5rem;
+      text-decoration: underline;
     }
     .toolbox, .principles, .cta {
       text-align: center;
@@ -205,7 +207,6 @@
       .card p { font-size: 0.9rem; }
       .card .story { max-height: 0; }
       .card.active .story { max-height: 400px; }
-      .card .toggle-story { display: block; }
       .toolbox-grid { grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); }
       .toolbox-item span { display: block; }
       .principles-list { flex-direction: column; }
@@ -293,7 +294,7 @@
       <div class="cta-buttons">
         <a href="https://www.linkedin.com/in/narcis-enache-976355364/" target="_blank" rel="noopener noreferrer" class="cta-button">LinkedIn</a>
         <a href="mailto:enachenarcis16@gmail.com" class="cta-button">Email</a>
-        <a href="https://drive.google.com/file/d/1FB6Fta7-_UpmuuhhlKNYN5FZYxceAwqk/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="cta-button">Download CV</a>
+        <a href="https://drive.google.com/uc?export=download&id=1FB6Fta7-_UpmuuhhlKNYN5FZYxceAwqk" target="_blank" rel="noopener noreferrer" class="cta-button">Download CV</a>
       </div>
     </div>
   </div>
@@ -312,10 +313,11 @@
     }, { threshold: 0.1 });
     milestones.forEach(milestone => observer.observe(milestone));
 
-    // Toggle story on click for mobile
+    // Toggle story on click
     document.querySelectorAll('.card').forEach(card => {
       const toggle = card.querySelector('.toggle-story');
-      card.addEventListener('click', () => {
+      toggle.addEventListener('click', (e) => {
+        e.stopPropagation();
         card.classList.toggle('active');
         toggle.textContent = card.classList.contains('active') ? 'Read Less' : 'Read More';
       });
