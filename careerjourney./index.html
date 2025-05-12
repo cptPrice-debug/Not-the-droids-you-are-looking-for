@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Career Journey Map</title>
+  <style>
+    body {
+      font-family: Georgia, serif;
+      color: #333;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .header h1 {
+      font-size: 2rem;
+      margin: 0;
+      color: #222;
+    }
+    .header p {
+      font-size: 1.1rem;
+      color: #555;
+      margin: 0.5rem 0 0;
+      overflow: hidden;
+      white-space: nowrap;
+      animation: typing 3s steps(40, end) forwards;
+    }
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+    .timeline {
+      position: relative;
+      margin: 0 auto;
+      padding-left: 2rem;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 1rem;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: #00c4b4;
+      border-left: 2px dashed #36a9e1;
+    }
+    .milestone {
+      position: relative;
+      margin-bottom: 2rem;
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .milestone.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .milestone::before {
+      content: '📍';
+      position: absolute;
+      left: -2.1rem;
+      top: 0;
+      font-size: 1.5rem;
+    }
+    .card {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+    .card:hover {
+      transform: scale(1.02);
+    }
+    .card h3 {
+      font-size: 1.3rem;
+      margin: 0 0 0.5rem;
+      color: #00c4b4;
+    }
+    .card p {
+      margin: 0.3rem 0;
+      font-size: 1rem;
+    }
+    .card p strong {
+      color: #36a9e1;
+    }
+    .card p::before {
+      margin-right: 0.5rem;
+    }
+    .toolbox {
+      text-align: center;
+      margin: 3rem 0;
+    }
+    .toolbox h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: #00c4b4;
+    }
+    .toolbox-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 1rem;
+      justify-items: center;
+    }
+    .toolbox-item {
+      font-size: 1rem;
+      padding: 0.5rem;
+      color: #333;
+    }
+    .principles {
+      text-align: center;
+      margin: 3rem 0;
+    }
+    .principles h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: #00c4b4;
+    }
+    .principles-list {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .principle {
+      padding: 0.5rem 1rem;
+      border: 1px solid #00c4b4;
+      border-radius: 5px;
+      transition: box-shadow 0.3s ease;
+    }
+    .principle:hover {
+      box-shadow: 0 0 8px rgba(0, 196, 180, 0.5);
+    }
+    .cta {
+      text-align: center;
+      margin: 3rem 0;
+    }
+    .cta h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: #00c4b4;
+    }
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .cta-button {
+      padding: 0.5rem 1rem;
+      background: linear-gradient(90deg, #00c4b4, #1e90ff);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .cta-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 8px rgba(30, 144, 255, 0.7);
+    }
+    @media (max-width: 600px) {
+      .container {
+        padding: 0 0.5rem;
+      }
+      .header h1 {
+        font-size: 1.5rem;
+      }
+      .header p {
+        font-size: 0.9rem;
+      }
+      .card {
+        padding: 1rem;
+      }
+      .card h3 {
+        font-size: 1.1rem;
+      }
+      .card p {
+        font-size: 0.9rem;
+      }
+      .toolbox-grid {
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+      }
+      .principles-list {
+        flex-direction: column;
+      }
+      .cta-buttons {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🧭 Maps, Markets, and Meaning</h1>
+      <p>A journey across data, decisions, and people</p>
+    </div>
+
+    <div class="timeline">
+      <div class="milestone">
+        <div class="card">
+          <h3>2015 — KRUK Romania: Contact Center Agent</h3>
+          <p><strong>🔹 Role Summary:</strong> Managed high-stakes client interactions in debt recovery.</p>
+          <p><strong>📖 Story:</strong> Each call was a puzzle—balancing empathy with precision under pressure.</p>
+          <p><strong>🎯 Impact:</strong> Resolved complex cases; mentored new hires.</p>
+          <p><strong>🌱 Growth:</strong> Honed empathy and real-time problem-solving.</p>
+          <p><strong>💡 Insight:</strong> Structure and trust are key in high-stress contexts.</p>
+        </div>
+      </div>
+
+      <div class="milestone">
+        <div class="card">
+          <h3>2018 — Customer Experience & Research Analyst</h3>
+          <p><strong>🔹 Role Summary:</strong> Built CX research from scratch, ran 40+ research cycles.</p>
+          <p><strong>📖 Story:</strong> Turned raw feedback into strategies that shaped service delivery.</p>
+          <p><strong>🎯 Impact:</strong> Delivered 40+ reports adopted company-wide.</p>
+          <p><strong>🌱 Growth:</strong> Mastered behavioral data, SPSS, stakeholder alignment.</p>
+          <p><strong>💡 Insight:</strong> Data tells you what, stories tell you why.</p>
+        </div>
+      </div>
+
+      <div class="milestone">
+        <div class="card">
+          <h3>2021 — CX & Research Project Manager</h3>
+          <p><strong>🔹 Role Summary:</strong> Led CX and research, integrated into product strategy.</p>
+          <p><strong>📖 Story:</strong> Mapped journeys, designed systems, and influenced strategy.</p>
+          <p><strong>🎯 Impact:</strong> +300% feedback volume, -6% late payments, +10% CSAT/NPS.</p>
+          <p><strong>🌱 Growth:</strong> Gained cross-functional fluency in marketing, product, PR.</p>
+          <p><strong>💡 Insight:</strong> Insights don’t scale unless the system is ready.</p>
+        </div>
+      </div>
+
+      <div class="milestone">
+        <div class="card">
+          <h3>2023 — Financial Investment & Market Research</h3>
+          <p><strong>🔹 Role Summary:</strong> Pivoted to finance, managing portfolios and market research.</p>
+          <p><strong>📖 Story:</strong> Applied pattern recognition to financial trends and risks.</p>
+          <p><strong>🎯 Impact:</strong> Shifted to investment decisions using analytical frameworks.</p>
+          <p><strong>🌱 Growth:</strong> Building SQL, Tableau, and deeper analytics skills.</p>
+          <p><strong>💡 Insight:</strong> A good investor listens—to noise, signal, and self.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="toolbox">
+      <h3>⛏️ Toolbox</h3>
+      <div class="toolbox-grid">
+        <div class="toolbox-item" title="Excel">📊 Excel</div>
+        <div class="toolbox-item" title="Tableau">📈 Tableau</div>
+        <div class="toolbox-item" title="SQL">💾 SQL</div>
+        <div class="toolbox-item" title="SPSS">📉 SPSS</div>
+        <div class="toolbox-item" title="Journey Mapping">🗺️ Journey Mapping</div>
+        <div class="toolbox-item" title="Stakeholder Comms">🤝 Stakeholder Comms</div>
+      </div>
+    </div>
+
+    <div class="principles">
+      <h3>🧠 Core Principles</h3>
+      <div class="principles-list">
+        <div class="principle">Structure follows meaning.</div>
+        <div class="principle">Data is empathy, scaled.</div>
+        <div class="principle">Work = Service + Precision</div>
+      </div>
+    </div>
+
+    <div class="cta">
+      <h3>📫 Let’s Work Together</h3>
+      <div class="cta-buttons">
+        <a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer" class="cta-button">LinkedIn</a>
+        <a href="mailto:enachenarcis16@gmail.com" class="cta-button">Email</a>
+        <a href="link-to-your-cv.pdf" target="_blank" rel="noopener noreferrer" class="cta-button">Download CV</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Animate milestones on scroll
+    const milestones = document.querySelectorAll('.milestone');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    milestones.forEach(milestone => observer.observe(milestone));
+  </script>
+</body>
+</html>
