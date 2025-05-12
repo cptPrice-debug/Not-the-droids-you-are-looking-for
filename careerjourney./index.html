@@ -21,16 +21,19 @@
     .header {
       text-align: center;
       margin-bottom: 3rem;
+      background: linear-gradient(180deg, #e0f7fa, #f5f5f5);
+      padding: 1rem;
+      border-radius: 8px;
     }
     .header h1 {
       font-size: 2rem;
       margin: 0;
       color: #222;
     }
-    .header p {
+    .header p.subtitle {
       font-size: 1.1rem;
-      color: #555;
-      margin: 0.5rem 0 0;
+      color: #444;
+      margin: 0.5rem 0;
       overflow: hidden;
       white-space: nowrap;
       animation: typing 3s steps(40, end) forwards;
@@ -38,6 +41,16 @@
     @keyframes typing {
       from { width: 0; }
       to { width: 100%; }
+    }
+    .header .intro {
+      font-size: 1rem;
+      color: #555;
+      margin: 1rem 0;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards 3s;
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; }
     }
     .timeline {
       position: relative;
@@ -79,6 +92,12 @@
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       transition: transform 0.3s ease;
     }
+    .card.language {
+      background: url('https://www.transparenttextures.com/patterns/paper-fibers.png'), white;
+    }
+    .card.data {
+      background: url('https://www.transparenttextures.com/patterns/graphy.png'), white;
+    }
     .card:hover {
       transform: scale(1.02);
     }
@@ -94,14 +113,19 @@
     .card p strong {
       color: #36a9e1;
     }
-    .card p::before {
-      margin-right: 0.5rem;
+    .card .story {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease;
     }
-    .toolbox {
+    .card:hover .story, .card.active .story {
+      max-height: 200px; /* Adjust based on content */
+    }
+    .toolbox, .principles, .cta {
       text-align: center;
       margin: 3rem 0;
     }
-    .toolbox h3 {
+    .toolbox h3, .principles h3, .cta h3 {
       font-size: 1.5rem;
       margin-bottom: 1rem;
       color: #00c4b4;
@@ -113,18 +137,17 @@
       justify-items: center;
     }
     .toolbox-item {
-      font-size: 1rem;
+      font-size: 1.5rem;
       padding: 0.5rem;
       color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
-    .principles {
-      text-align: center;
-      margin: 3rem 0;
-    }
-    .principles h3 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-      color: #00c4b4;
+    .toolbox-item span {
+      font-size: 0.8rem;
+      margin-top: 0.3rem;
+      display: none;
     }
     .principles-list {
       display: flex;
@@ -140,15 +163,6 @@
     }
     .principle:hover {
       box-shadow: 0 0 8px rgba(0, 196, 180, 0.5);
-    }
-    .cta {
-      text-align: center;
-      margin: 3rem 0;
-    }
-    .cta h3 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-      color: #00c4b4;
     }
     .cta-buttons {
       display: flex;
@@ -171,33 +185,18 @@
       box-shadow: 0 0 8px rgba(30, 144, 255, 0.7);
     }
     @media (max-width: 600px) {
-      .container {
-        padding: 0 0.5rem;
-      }
-      .header h1 {
-        font-size: 1.5rem;
-      }
-      .header p {
-        font-size: 0.9rem;
-      }
-      .card {
-        padding: 1rem;
-      }
-      .card h3 {
-        font-size: 1.1rem;
-      }
-      .card p {
-        font-size: 0.9rem;
-      }
-      .toolbox-grid {
-        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-      }
-      .principles-list {
-        flex-direction: column;
-      }
-      .cta-buttons {
-        flex-direction: column;
-      }
+      .container { padding: 0 0.5rem; }
+      .header h1 { font-size: 1.5rem; }
+      .header p { font-size: 0.9rem; }
+      .card { padding: 1rem; }
+      .card h3 { font-size: 1.1rem; }
+      .card p { font-size: 0.9rem; }
+      .card .story { max-height: 0; }
+      .card.active .story { max-height: 300px; }
+      .toolbox-grid { grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); }
+      .toolbox-item span { display: block; }
+      .principles-list { flex-direction: column; }
+      .cta-buttons { flex-direction: column; }
     }
   </style>
 </head>
@@ -205,69 +204,66 @@
   <div class="container">
     <div class="header">
       <h1>🧭 Maps, Markets, and Meaning</h1>
-      <p>A journey across data, decisions, and people</p>
+      <p class="subtitle">A short story about how I learned to navigate complexity — with people, data, and systems.</p>
+      <p class="intro">I didn’t begin in finance. I began in <strong>language</strong> — studying philology, multilingualism, and literature. Those years taught me to decode meaning, think structurally, and listen for nuance. At the time, I didn’t know these same skills would later guide complex systems and help solve business problems.</p>
     </div>
 
     <div class="timeline">
       <div class="milestone">
-        <div class="card">
-          <h3>2015 — KRUK Romania: Contact Center Agent</h3>
-          <p><strong>🔹 Role Summary:</strong> Managed high-stakes client interactions in debt recovery.</p>
-          <p><strong>📖 Story:</strong> Each call was a puzzle—balancing empathy with precision under pressure.</p>
-          <p><strong>🎯 Impact:</strong> Resolved complex cases; mentored new hires.</p>
-          <p><strong>🌱 Growth:</strong> Honed empathy and real-time problem-solving.</p>
-          <p><strong>💡 Insight:</strong> Structure and trust are key in high-stress contexts.</p>
+        <div class="card language">
+          <h3>2015–2018 — KRUK Romania: Senior Contact Center Agent</h3>
+          <p><strong>🔹 Role Summary:</strong> Handled high-volume client interactions in debt recovery.</p>
+          <p class="story"><strong>📖 Story:</strong> In 2015, I joined KRUK Romania, the country’s leading debt recovery company. I began on the front lines — as a Contact Center Agent — handling high-volume client interactions in stressful financial contexts. It taught me precision, empathy, and how to manage complexity under pressure.</p>
+          <p><strong>🎯 Impact:</strong> Consistently handled complex cases; mentored new team members.</p>
+          <p><strong>🌱 Growth:</strong> Built a foundation in behavioral handling and real-time problem-solving.</p>
         </div>
       </div>
 
       <div class="milestone">
-        <div class="card">
-          <h3>2018 — Customer Experience & Research Analyst</h3>
+        <div class="card data">
+          <h3>2018–2021 — Customer Experience & Research Analyst</h3>
           <p><strong>🔹 Role Summary:</strong> Built CX research from scratch, ran 40+ research cycles.</p>
-          <p><strong>📖 Story:</strong> Turned raw feedback into strategies that shaped service delivery.</p>
-          <p><strong>🎯 Impact:</strong> Delivered 40+ reports adopted company-wide.</p>
-          <p><strong>🌱 Growth:</strong> Mastered behavioral data, SPSS, stakeholder alignment.</p>
-          <p><strong>💡 Insight:</strong> Data tells you what, stories tell you why.</p>
+          <p class="story"><strong>📖 Story:</strong> Curiosity led me deeper — into data, and into a newly formed team at KRUK: Customer Experience. We were just two people, building from the ground up. I quickly took on full-cycle research projects: designing surveys, analyzing customer behavior, and translating insights into strategies that shaped service delivery.</p>
+          <p><strong>🎯 Impact:</strong> Created 40+ insight documents used across departments; standardized reporting.</p>
+          <p><strong>🌱 Growth:</strong> Developed technical fluency in research and strategic thinking.</p>
         </div>
       </div>
 
       <div class="milestone">
-        <div class="card">
-          <h3>2021 — CX & Research Project Manager</h3>
+        <div class="card data">
+          <h3>2021–2023 — CX & Research Project Manager</h3>
           <p><strong>🔹 Role Summary:</strong> Led CX and research, integrated into product strategy.</p>
-          <p><strong>📖 Story:</strong> Mapped journeys, designed systems, and influenced strategy.</p>
-          <p><strong>🎯 Impact:</strong> +300% feedback volume, -6% late payments, +10% CSAT/NPS.</p>
-          <p><strong>🌱 Growth:</strong> Gained cross-functional fluency in marketing, product, PR.</p>
-          <p><strong>💡 Insight:</strong> Insights don’t scale unless the system is ready.</p>
+          <p class="story"><strong>📖 Story:</strong> Our small team was quickly recognized as a key source of insight within the company, and we were integrated into a larger department focused on product development and business strategy. It felt like being part of a startup inside a big organization — agile, creative, and fast-moving. I had the chance to collaborate across functions and absorb a wide range of skills: digital marketing, PR and communication, loyalty programs, and strategic planning. Within this new structure, I found myself leading research and customer experience initiatives. I mapped customer journeys, segmented user types, and identified friction points that helped reduce late-payment incidents by 6% and improved satisfaction KPIs (CSAT/NPS) by ~10%. I also implemented a multi-channel feedback system that tripled response volume and delivered real-time insights across the organization.</p>
+          <p><strong>🎯 Impact:</strong> +300% feedback volume, -6% late payments, +10% CSAT/NPS growth.</p>
+          <p><strong>🌱 Growth:</strong> Gained cross-functional exposure; learned to design systems.</p>
         </div>
       </div>
 
       <div class="milestone">
-        <div class="card">
-          <h3>2023 — Financial Investment & Market Research</h3>
+        <div class="card data">
+          <h3>2023–Present — Financial Investment & Market Research</h3>
           <p><strong>🔹 Role Summary:</strong> Pivoted to finance, managing portfolios and market research.</p>
-          <p><strong>📖 Story:</strong> Applied pattern recognition to financial trends and risks.</p>
+          <p class="story"><strong>📖 Story:</strong> In 2023, I took a risk and pivoted into finance — managing portfolios and conducting market research full-time. I apply the same pattern-recognition skills to trends, risks, and investment strategy. Currently expanding into Business Analysis and Data Analytics, with a focus on deepening my use of Tableau and SQL.</p>
           <p><strong>🎯 Impact:</strong> Shifted to investment decisions using analytical frameworks.</p>
-          <p><strong>🌱 Growth:</strong> Building SQL, Tableau, and deeper analytics skills.</p>
-          <p><strong>💡 Insight:</strong> A good investor listens—to noise, signal, and self.</p>
+          <p><strong>🌱 Growth:</strong> Building advanced analytics skills with Tableau and SQL.</p>
         </div>
       </div>
     </div>
 
     <div class="toolbox">
-      <h3>⛏️ Toolbox</h3>
+      <h3>⛏️ Tools I’ve Mastered Along the Way</h3>
       <div class="toolbox-grid">
-        <div class="toolbox-item" title="Excel">📊 Excel</div>
-        <div class="toolbox-item" title="Tableau">📈 Tableau</div>
-        <div class="toolbox-item" title="SQL">💾 SQL</div>
-        <div class="toolbox-item" title="SPSS">📉 SPSS</div>
-        <div class="toolbox-item" title="Journey Mapping">🗺️ Journey Mapping</div>
-        <div class="toolbox-item" title="Stakeholder Comms">🤝 Stakeholder Comms</div>
+        <div class="toolbox-item" title="Excel">📊 <span>Excel</span></div>
+        <div class="toolbox-item" title="Tableau">📈 <span>Tableau</span></div>
+        <div class="toolbox-item" title="SQL">🗄️ <span>SQL</span></div>
+        <div class="toolbox-item" title="SPSS">📉 <span>SPSS</span></div>
+        <div class="toolbox-item" title="Journey Mapping">🗺️ <span>Journey Mapping</span></div>
+        <div class="toolbox-item" title="Stakeholder Comms">💬 <span>Stakeholder Comms</span></div>
       </div>
     </div>
 
     <div class="principles">
-      <h3>🧠 Core Principles</h3>
+      <h3>🧠 Lessons Learned on This Journey</h3>
       <div class="principles-list">
         <div class="principle">Structure follows meaning.</div>
         <div class="principle">Data is empathy, scaled.</div>
@@ -276,7 +272,7 @@
     </div>
 
     <div class="cta">
-      <h3>📫 Let’s Work Together</h3>
+      <h3>📫 Let’s Write the Next Chapter Together!</h3>
       <div class="cta-buttons">
         <a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer" class="cta-button">LinkedIn</a>
         <a href="mailto:enachenarcis16@gmail.com" class="cta-button">Email</a>
@@ -289,14 +285,22 @@
     // Animate milestones on scroll
     const milestones = document.querySelectorAll('.milestone');
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
+      entries.forEach((entry, index) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, index * 200);
         }
       });
     }, { threshold: 0.1 });
-
     milestones.forEach(milestone => observer.observe(milestone));
+
+    // Toggle story on click for mobile
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('click', () => {
+        card.classList.toggle('active');
+      });
+    });
   </script>
 </body>
 </html>
