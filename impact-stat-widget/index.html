@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Achievement Impact Stat</title>
+  <style>
+    .widget {
+      max-width: 250px;
+      margin: 1rem auto;
+      padding: 1rem;
+      text-align: center;
+      font-family: Georgia, serif;
+      color: #222;
+      border: 2px solid black;
+      border-radius: 8px;
+      background-color: #f5f5f5;
+      box-sizing: border-box;
+    }
+    .stat-container {
+      opacity: 1;
+      transition: opacity 0.5s ease-in-out;
+      font-size: 18px;
+      margin-bottom: 0.5rem;
+    }
+    .stat-container.fade {
+      opacity: 0;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .stat-container.fade-in {
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    .next-btn {
+      font-size: 14px;
+      background: none;
+      border: none;
+      text-decoration: underline;
+      cursor: pointer;
+      color: #222;
+    }
+    .next-btn:hover {
+      color: #555;
+    }
+    .next-btn:focus {
+      outline: 2px solid #000;
+      outline-offset: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="widget" role="region" aria-label="Achievement Impact Stat">
+    <div class="stat-container" id="statContainer" role="article" aria-live="polite"></div>
+    <button class="next-btn" aria-label="Show next stat" onclick="displayNextStat()">Next</button>
+  </div>
+
+  <script>
+    const stats = [
+      "4 Achievements: Reflecting discipline, creativity, and strategic clarity.",
+      "Marathons: 3+ completed with consistent training.",
+      "Presentation Audience: 500+ at a global conference.",
+      "Poetry Contest: 1st place in national competition.",
+      "Self-Authoring: 12 weeks of structured reflection."
+    ];
+
+    let currentIndex = 0;
+
+    function displayNextStat() {
+      const statContainer = document.getElementById('statContainer');
+      currentIndex = (currentIndex + 1) % stats.length;
+
+      statContainer.classList.add('fade');
+      setTimeout(() => {
+        statContainer.textContent = stats[currentIndex];
+        statContainer.classList.remove('fade');
+        statContainer.classList.add('fade-in');
+        setTimeout(() => statContainer.classList.remove('fade-in'), 500);
+      }, 500);
+    }
+
+    // Initial stat display
+    document.getElementById('statContainer').textContent = stats[0];
+  </script>
+</body>
+</html>
