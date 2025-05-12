@@ -57,7 +57,7 @@
       font-weight: bold;
       color: #333;
       position: absolute;
-      top: 10px;
+      top: 5px; /* Reduced space between label and chart */
       left: 50%;
       transform: translateX(-50%);
     }
@@ -65,6 +65,8 @@
 </head>
 <body>
   <div id="chart-container">
+    <h3>🧠 Skill Overview</h3>
+    <p class="subtitle">Self-assessed on a 0–100 scale</p>
     <div class="legend-label">Skill Levels</div>
     <canvas id="skillsRadarChart" width="280" height="280"></canvas>
   </div>
