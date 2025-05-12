@@ -7,33 +7,64 @@
   <style>
     body {
       margin: 0;
+      font-family: 'Inter', sans-serif;
       background: #f5f5f5;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
     }
+
     #chart-container {
       width: 300px;
-      height: 300px;
-      background: #ffffff;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      padding: 10px;
+      height: 330px;
+      background: radial-gradient(circle, #ffffff, #eeeeee);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+      padding: 15px;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    #chart-container.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    h3 {
+      margin: 10px 0 5px;
+      font-size: 18px;
+      color: #333;
+    }
+
+    p.subtitle {
+      margin: 0 0 10px;
+      font-size: 12px;
+      color: #666;
     }
   </style>
 </head>
 <body>
   <div id="chart-container">
-    <canvas id="skillsRadarChart"></canvas>
+    <h3>🧠 Skill Overview</h3>
+    <p class="subtitle">Self-assessed on a 0–100 scale</p>
+    <canvas id="skillsRadarChart" width="280" height="280"></canvas>
   </div>
 
   <script>
-    const ctx = document.getElementById('skillsRadarChart').getContext('2d');
-    new Chart(ctx, {
+    const skillsData = {
+      Discipline: 'Focus & consistency in tasks.',
+      Communication: 'Expressing thoughts clearly.',
+      Creativity: 'Generating innovative ideas.',
+      'Self-Awareness': 'Understanding personal strengths and weaknesses.'
+    };
+
+    const chartConfig = {
       type: 'radar',
       data: {
-        labels: ['Discipline', 'Communication', 'Creativity', 'Self-Awareness'],
+        labels: Object.keys(skillsData),
         datasets: [{
           label: 'Skill Levels',
           data: [90, 85, 80, 75],
@@ -45,19 +76,43 @@
       options: {
         responsive: true,
         plugins: {
-          legend: { display: false }
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                const label = context.label;
+                const score = context.raw;
+                return skillsData[label] + ' Score: ' + score;
+              }
+            }
+          }
         },
         scales: {
           r: {
             angleLines: { color: '#ccc' },
-            grid: { color: '#eee' },
+            grid: { color: '#e0e0e0' },
             suggestedMin: 0,
             suggestedMax: 100,
             pointLabels: { color: '#333' }
           }
         }
       }
-    });
+    };
+
+    // Lazy load the chart when it enters viewport
+    let chartInitialized = false;
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !chartInitialized) {
+          const ctx = document.getElementById('skillsRadarChart').getContext('2d');
+          new Chart(ctx, chartConfig);
+          document.getElementById('chart-container').classList.add('visible');
+          chartInitialized = true;
+        }
+      });
+    }, { threshold: 0.3 });
+
+    observer.observe(document.getElementById('chart-container'));
   </script>
 </body>
 </html>
