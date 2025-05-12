@@ -68,8 +68,20 @@
   <div class="widget" role="region" aria-label="Data-Inspired Contact Pulse">
     <div class="content">
       <div class="message">Have a market research question?</div>
-      <a href="https://www.linkedin.com/in/narcis-enache-976355364/" class="connect-btn" aria-label="Send an email">Let’s talk!</a>
+      <button class="connect-btn" onclick="handleLinkClick()" aria-label="Visit LinkedIn profile">Let’s talk!</button>
     </div>
   </div>
+
+  <script>
+    function handleLinkClick() {
+      try {
+        // Attempt to open LinkedIn in a new tab
+        window.open('https://linkedin.com/in/yourprofile', '_blank');
+      } catch (error) {
+        // Fallback: redirect to GitHub if LinkedIn fails
+        window.open('https://github.com/yourusername', '_blank');
+      }
+    }
+  </script>
 </body>
 </html>
