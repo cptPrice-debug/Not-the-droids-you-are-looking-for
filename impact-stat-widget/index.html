@@ -28,6 +28,7 @@
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 0.8s ease, transform 0.8s ease;
+      position: relative; /* Ensure positioning for the info icon */
     }
 
     #chart-container.visible {
@@ -62,11 +63,7 @@
       transform: translateX(-50%);
     }
 
-    <div style="position: relative; display: inline-block;">
-  <canvas id="myRadarChart" width="300" height="300"></canvas>
-
-  <!-- Bottom-right info icon -->
-  <div style="
+    .hover-tip {
       position: absolute;
       bottom: 8px;
       right: 10px;
@@ -74,12 +71,11 @@
       color: #888;
       display: flex;
       align-items: center;
-  ">
-    <span style="margin-right: 4px;">ⓘ</span>
-    <span>Hover over each point for a short description.</span>
-  </div>
-</div>
+    }
 
+    .hover-tip span:first-child {
+      margin-right: 4px;
+    }
   </style>
 </head>
 <body>
@@ -88,6 +84,12 @@
     <p class="subtitle">Self-assessed on a 0–100 scale</p>
     <div class="legend-label">Skill Levels</div>
     <canvas id="skillsRadarChart" width="280" height="280"></canvas>
+
+    <!-- Bottom-right info icon -->
+    <div class="hover-tip">
+      <span>ⓘ</span>
+      <span>Hover points for details</span>
+    </div>
   </div>
 
   <script>
@@ -136,20 +138,4 @@
       }
     };
 
-    // Lazy load the chart when it enters viewport
-    let chartInitialized = false;
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting && !chartInitialized) {
-          const ctx = document.getElementById('skillsRadarChart').getContext('2d');
-          new Chart(ctx, chartConfig);
-          document.getElementById('chart-container').classList.add('visible');
-          chartInitialized = true;
-        }
-      });
-    }, { threshold: 0.3 });
-
-    observer.observe(document.getElementById('chart-container'));
-  </script>
-</body>
-</html>
+    // Lazy
